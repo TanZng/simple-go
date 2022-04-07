@@ -1,0 +1,1 @@
+INSERT INTO beneficiario (id, name) VALUES('b93fa7a8-93bf-46e4-a453-4ee3a018e975', 'Jane Doer') ON CONFLICT DO NOTHING;
