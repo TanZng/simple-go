@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  go-api:
+    build: .
+    environment:
+      API_PORT: ":8080"
+      DB_USER: postgres
+      DB_PWD: postgres
+      DB_NAME: postgres
+      DB_HOST: pet_db
+      DB_PORT: "5432"
+      DB_SSL_MODE: "disable"
+      DB_MAX_IDLE_CONNS: 10
+      DB_MAX_OPEN_CONNS: 20
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/app
+    depends_on:
+      - pet_db
+    networks:
+      - backend
+  pet_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_SSLMODE: disable
+    ports:
+      - 5432:5432
+    volumes:
+      - database_postgres:/var/lib/postgresql/data
+    networks:
+      - backend
+volumes:
+  database_postgres:
+networks:
+  backend:
